@@ -15,7 +15,7 @@ class Square: # Cada quadrado da matriz
         self.square_id = None
 
     def draw_square(self):
-        self.square_id = self.canvas.create_rectangle(self.x1, self.y1, self.x2, self.y2, fill="white")
+        self.square_id = self.canvas.create_rectangle(self.x1, self.y1, self.x2, self.y2, fill="white", outline="")
 
     def paint(self, color="white"):
         if self.square_id:
@@ -148,9 +148,9 @@ class Grid(Game):  # Herdando de Game
             
     def pick_random_square(self):
         
-        if len(self.positions_queue) == self.level + 1:
-            self.can_compute_position = True
-            self.can_compute_color = True
+        #if len(self.positions_queue) > self.level:
+        self.can_compute_position = True
+        self.can_compute_color = True
             
         self.score = (self.max_moves + self.points) * 100 // self.max_moves
 
@@ -166,16 +166,20 @@ class Grid(Game):  # Herdando de Game
         self.update_colors(row, col)
         
         # Verificação para a penalização
-
-        self.check_and_penalize()
+        
+        if len(self.lasts_colors) == self.level + 1:
+            self.check_and_penalize()
 
         self.root.after(2000, lambda: [self.grid[row][col].paint(), setattr(self, "can_compute_position", False), setattr(self, "can_compute_color", False)])
         self.counter += 1
         self.root.after(2500, self.pick_random_square)
         self.update_score()
+        print(self.lasts_colors)
 
     def check_colors(self):
+        #print("checando se a cor atual foi igual à N última")
         if len(self.lasts_colors) == self.level + 1 and self.lasts_colors[0] == self.lasts_colors[-1]:
+            #print(f"Cores iguais!")
             return True
         return False
 
