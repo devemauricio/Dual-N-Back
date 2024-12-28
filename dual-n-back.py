@@ -174,7 +174,7 @@ class Grid(Game):  # Herdando de Game
         self.counter += 1
         self.root.after(2500, self.pick_random_square)
         self.update_score()
-        print(self.lasts_colors)
+        #print(self.lasts_colors)
 
     def check_colors(self):
         #print("checando se a cor atual foi igual à N última")
