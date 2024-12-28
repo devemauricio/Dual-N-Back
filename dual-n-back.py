@@ -15,7 +15,7 @@ class Square: # Cada quadrado da matriz
         self.square_id = None
 
     def draw_square(self):
-        self.square_id = self.canvas.create_rectangle(self.x1, self.y1, self.x2, self.y2, fill="white", outline="")
+        self.square_id = self.canvas.create_rectangle(self.x1, self.y1, self.x2, self.y2, fill="white")
 
     def paint(self, color="white"):
         if self.square_id:
